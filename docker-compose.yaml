@@ -25,6 +25,17 @@ services:
       - "8888:8888"
     links:
       - influxdb
+  kapacitor:
+    container_name: kapacitor
+    image: kapacitor:1.5
+    ports:
+      - "9092:9092"
+    environment:
+      - KAPACITOR_INFLUXDB_0_URLS_0=http://influxdb:8086
+    volumes:
+      - /opt/data/kapacitor/data:/var/lib/kapacitor
+    links:
+      - influxdb
   grafana:
   #uid: 472 gid: 472
     container_name: grafana
